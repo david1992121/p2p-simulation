@@ -4,7 +4,6 @@ from typing import List, Union
 from pydantic import AnyHttpUrl, BaseSettings, validator
 
 
-
 class Settings(BaseSettings):
     PROJECT_NAME: str
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
@@ -16,8 +15,6 @@ class Settings(BaseSettings):
         elif isinstance(v, (list, str)):
             return v
         raise ValueError(v)
-
-    
 
     class Config:
         case_sensitive = True

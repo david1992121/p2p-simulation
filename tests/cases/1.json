@@ -1,0 +1,75 @@
+{
+    "case": [
+        {
+            "join": {
+                "capacity": 1
+            }
+        },
+        {
+            "join": {
+                "capacity": 0
+            }
+        },
+        {
+            "join": {
+                "capacity": 1
+            }
+        },
+        {
+            "join": {
+                "capacity": 1
+            }
+        },
+        {
+            "join": {
+                "capacity": 3
+            }
+        },
+        {
+            "join": {
+                "capacity": 2
+            }
+        },
+        {
+            "leave": {
+                "id": 4
+            }
+        }
+    ],
+    "result": [
+        {
+            "nodes": {
+                "N1": 1,
+                "N2": 0
+            },
+            "edges": [
+                [
+                    "N1",
+                    "N2"
+                ]
+            ]
+        },
+        {
+            "nodes": {
+                "N3": 1,
+                "N4": 1,
+                "N5": 3,
+                "N6": 2
+            },
+            "edges": [
+                [
+                    "N3",
+                    "N4"
+                ],
+                [
+                    "N4",
+                    "N5"
+                ],
+                [
+                    "N5",
+                    "N6"
+                ]
+            ]
+        }
+    ]
+}
