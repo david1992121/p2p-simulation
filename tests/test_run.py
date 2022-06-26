@@ -1,5 +1,4 @@
 from network.crud import P2PNetwork
-from typing import List
 import pathlib
 import json
 import os
@@ -99,8 +98,8 @@ class TestP2PNetwork:
 
         assert tree.node_ids == [1, 2]
 
-        second_node = self.network.nodes[self.network.find_node_index(2)]
-        first_node = self.network.nodes[self.network.find_node_index(1)]
+        _, second_node = self.network.find_node(2)
+        _, first_node = self.network.find_node(1)
         assert second_node.parent_id == first_node.id
         assert first_node.child_ids == [second_node.id]
         assert first_node.remaining == 0
