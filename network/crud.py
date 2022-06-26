@@ -1,6 +1,6 @@
 from typing import List, Tuple, Union
 from .models import Node, Tree, get_node_name
-from .helper import find_edges, get_max_index, sort_by_key
+from .helper import find_edges, find_subtree_nodes, get_max_index, sort_by_key
 from copy import deepcopy
 
 
@@ -80,24 +80,64 @@ class P2PNetwork():
         is_root = node_id == cur_tree.root_id
 
         if is_root:
+            # if the root has no child, remove the tree
             if number_of_childs == 0:
-                # if the root has no child, remove the tree
                 self.trees.pop(cur_tree_index)
             else:
+                # if the root has one child node
                 if number_of_childs == 1:
-                    # if the root has one child
                     child_node_id = cur_node.child_ids[0]
                     _, child_node = self.find_node(child_node_id)
 
                     # set the child as the root of the current tree
                     child_node.parent_id = 0
                     cur_tree.root_id = child_node_id
+
+                # if the root has two child nodes
                 elif number_of_childs == 2:
                     cur_node.child_ids.sort()
                     _, first_c_node = self.find_node(cur_node.child_ids[0])
                     _, second_c_node = self.find_node(cur_node.child_ids[1])
 
-                    # TODO: add the logic
+                    cur_tree_nodes: List[Node] = [
+                        deepcopy(self.nodes[self.find_node(x)[0]]) for x in cur_tree.node_ids]
+                    second_sub_tree_nodes: List[int] = []
+                    find_subtree_nodes(
+                        second_c_node, cur_tree_nodes, second_sub_tree_nodes)
+
+                    first_sub_tree_nodes: List[int] = []
+                    find_subtree_nodes(
+                        second_c_node, cur_tree_nodes, first_sub_tree_nodes)
+
+                    # if the two child nodes have no remaining capacity, divide the tree into two
+                    if first_c_node.remaining == 0 and second_c_node.remaining == 0:
+                        # update the current tree
+                        cur_tree.root_id = first_c_node.id
+                        cur_tree.node_ids = first_sub_tree_nodes
+
+                        # create a new tree with the second node as a root
+                        new_tree = Tree(
+                            id=self.max_tree_id + 1,
+                            node_ids=second_sub_tree_nodes,
+                            root_id=second_c_node.id
+                        )
+                        self.add_tree(new_tree)
+
+                    else:
+                        # if the first child has the remaining capacity, make it a root
+                        if first_c_node.remaining > 0:
+                            cur_tree.root_id = first_c_node.id
+                            first_c_node.parent_id = 0
+                            second_c_node.parent_id = first_c_node.id
+                            first_c_node.remaining -= 1
+                        # if the second child has the remaining capacity, make it a root
+                        else:
+                            cur_tree.root_id = second_c_node.id
+                            second_c_node.parent_id = 0
+                            first_c_node.parent_id = second_c_node.id
+                            second_c_node.remaining -= 1
+
+                # if the root has three child nodes
                 else:
                     # TODO: add the logic
                     pass
