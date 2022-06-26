@@ -70,10 +70,13 @@ class P2PNetwork():
         # add a node
         self.add_node(new_node)
 
-    def leave(self, node_id: int):
+    def leave(self, node_id: int) -> bool:
         ''' Remove the node from the network, rebuild '''
 
         cur_node_index, cur_node = self.find_node(node_id)
+        if cur_node == None:
+            return False
+
         number_of_childs = len(cur_node.child_ids)
         cur_tree_id = cur_node.tree_id
         cur_tree_index, cur_tree = self.find_tree(cur_tree_id)
@@ -169,6 +172,7 @@ class P2PNetwork():
             cur_tree.node_ids.remove(node_id)
 
         self.nodes.pop(cur_node_index)
+        return True
 
     def info(self) -> List[dict]:
         ''' Outputs the current network info '''
