@@ -20,5 +20,9 @@ def get_application():
     return _app
 
 
+def route_application(app: FastAPI):
+    app.include_router(router, prefix="/network")
+
+
 app = get_application()
-app.include_router(router, prefix="/network")
+route_application(app)
