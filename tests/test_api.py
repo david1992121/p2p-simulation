@@ -1,3 +1,4 @@
+import unittest
 from fastapi import Response
 from app.main import get_application, route_application
 from fastapi.testclient import TestClient
@@ -8,12 +9,12 @@ route_application(app)
 client = TestClient(app)
 
 
-class TestAPI():
+class TestAPI(unittest.TestCase):
     '''
     A class for testing API
     '''
 
-    def setup_method(self, method):
+    def setUp(self):
         self.first_capacity = 1
         self.second_capacity = 2
 

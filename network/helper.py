@@ -45,7 +45,7 @@ def find_subtree_nodes(root_node_id: int, remaining_nodes: List[Node], all_nodes
 
         for child_node_id in child_nodes:
             all_nodes.append(child_node_id)
-            find_edges(child_node_id, updated_remaining_nodes, all_nodes)
+            find_subtree_nodes(child_node_id, updated_remaining_nodes, all_nodes)
 
 
 def get_max_index(values: List[int]):

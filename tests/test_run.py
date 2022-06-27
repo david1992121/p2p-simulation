@@ -1,3 +1,4 @@
+import unittest
 from network.crud import P2PNetwork
 import pathlib
 import json
@@ -20,12 +21,12 @@ def read_test_cases():
     return test_cases
 
 
-class TestP2PNetwork:
+class TestP2PNetwork(unittest.TestCase):
     '''
     A class for unit testing the P2PNetwork
     '''
 
-    def setup_method(self, method):
+    def setUp(self):
         ''' Executes initialization before every test '''
 
         self.initialize_network()

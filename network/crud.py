@@ -74,7 +74,7 @@ class P2PNetwork():
         ''' Remove the node from the network, rebuild '''
 
         cur_node_index, cur_node = self.find_node(node_id)
-        if cur_node == None:
+        if cur_node is None:
             return False
 
         number_of_childs = len(cur_node.child_ids)
