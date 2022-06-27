@@ -4,6 +4,7 @@ import pathlib
 import json
 import os
 from glob import glob
+from network.models import Node, Tree
 
 
 class TestP2PNetwork(unittest.TestCase):
@@ -91,3 +92,37 @@ class TestP2PNetwork(unittest.TestCase):
 
         assert second_node.capacity == 0
         assert second_node.remaining == 0
+
+    def test_add_node(self):
+        new_node = Node(1, 0, 0, [], 1, 0)
+        self.network.add_node(new_node)
+        assert len(self.network.nodes) == 1
+
+    def test_add_tree(self):
+        new_node = Node(1, 0, 0, [], 1, 0)
+        self.network.add_node(new_node)
+        new_tree = Tree(1, [1], 1)
+        self.network.add_tree(new_tree)
+        assert len(self.network.trees) == 1
+
+    def test_find_tree(self):
+        tree_index, tree = self.network.find_tree(1)
+        assert tree_index == -1
+        assert tree is None
+
+    def test_find_node(self):
+        node_index, node = self.network.find_node(1)
+        assert node_index == -1
+        assert node is None
+
+    def test_get_all_nodes(self):
+        self.network.join(1)
+        all_nodes = self.network.get_all_nodes([1])
+        assert "N1" in all_nodes.keys
+        assert all_nodes["N1"] == 1
+
+    def test_get_all_edges(self):
+        self.network.join(1)
+        assert len(self.network.trees) == 1
+        all_nodes = self.network.get_all_edges(self.network.trees[0])
+        assert len(all_nodes) == 0
