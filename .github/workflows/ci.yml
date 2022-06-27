@@ -32,6 +32,9 @@ jobs:
         with:
           arguments: "--max-line-length=120 --ignore=E501"
       - name: Run tests
+        env:
+          PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
+          BACKEND_CORS_ORIGINS: ${{ secrets.BACKEND_CORS_ORIGINS }}
         run: coverage run -m unittest
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v2
