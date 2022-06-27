@@ -25,7 +25,7 @@ async def leave(leave_info: LeaveInfo):
     Remove the node from the network.
     The node to be removed can be specified using it's identifier.
 
-    In this case, we want to reorder the current node tree (not all the network) to build the solution 
+    In this case, we want to reorder the current node tree (not all the network) to build the solution
     where the tree has the fewest number of depth levels.
 
     '''
