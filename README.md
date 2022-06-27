@@ -1,3 +1,6 @@
+[![CI](https://github.com/david1992121/p2p-simulation/actions/workflows/ci.yml/badge.svg)](https://github.com/david1992121/p2p-simulation/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/david1992121/p2p-simulation/branch/main/graph/badge.svg?token=YGPQWTSMS0)](https://codecov.io/gh/david1992121/p2p-simulation)
+
 # P2P-Simulating Network
 
 The API service for simulating p2p networks with a tree topology.
