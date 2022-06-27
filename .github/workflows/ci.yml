@@ -35,7 +35,9 @@ jobs:
         env:
           PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
           BACKEND_CORS_ORIGINS: ${{ secrets.BACKEND_CORS_ORIGINS }}
-        run: coverage run -m unittest
+        run: |
+          coverage run -m unittest
+          coverage report
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
