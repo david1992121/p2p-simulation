@@ -23,6 +23,8 @@ The service has the following three endpoints(the idea is to interact with the p
 
 ## Getting Started
 
+### 1. Without Docker
+
 First clone the repository from Github and switch to the new directory:
 
     $ git clone git@github.com/david1992121/p2p-simulation
@@ -38,6 +40,15 @@ You can now run the development server:
     $ fastapi run
 
 Then the uvicorn will be running on `127.0.0.1:8000`.
+
+### 2. With Docker
+
+Alternatively, you can bulid and run the server using docker:
+
+```
+docker build -t p2p-network .
+docker run -d --name p2p -p 8000:8000 p2p-network
+```
 
 ## How to checkout the API
 
