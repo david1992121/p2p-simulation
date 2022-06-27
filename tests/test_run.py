@@ -118,7 +118,7 @@ class TestP2PNetwork(unittest.TestCase):
     def test_get_all_nodes(self):
         self.network.join(1)
         all_nodes = self.network.get_all_nodes([1])
-        assert "N1" in all_nodes.keys
+        assert "N1" in all_nodes.keys()
         assert all_nodes["N1"] == 1
 
     def test_get_all_edges(self):
