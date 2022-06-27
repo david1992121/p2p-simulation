@@ -6,21 +6,6 @@ import os
 from glob import glob
 
 
-def read_test_cases():
-    ''' Read JSON files from the directory and return data for testing '''
-
-    test_cases = []
-    folder_path = pathlib.Path(__file__).parent.resolve()
-    folder_path = os.path.join(folder_path, "cases")
-    test_files = glob(folder_path + r"\*.json")
-
-    for test_file in test_files:
-        with open(test_file) as f:
-            case_data = json.load(f)
-            test_cases.append(case_data)
-    return test_cases
-
-
 class TestP2PNetwork(unittest.TestCase):
     '''
     A class for unit testing the P2PNetwork
@@ -39,7 +24,16 @@ class TestP2PNetwork(unittest.TestCase):
     def test_cases(self):
         ''' Test the sample cases defined in the JSON files '''
 
-        test_cases = read_test_cases()
+        test_cases = []
+        folder_path = pathlib.Path(__file__).parent.resolve()
+        folder_path = os.path.join(folder_path, "cases")
+        test_files = glob(folder_path + r"\*.json")
+
+        for test_file in test_files:
+            with open(test_file) as f:
+                case_data = json.load(f)
+                test_cases.append(case_data)
+
         for case_data in test_cases:
             self.initialize_network()
             simulation = case_data.get("case", None)
@@ -56,17 +50,10 @@ class TestP2PNetwork(unittest.TestCase):
             expected_structure = json.dumps(expected)
             assert network_structure == expected_structure
 
-        # network_data = self.execute_multiple_join([1, 0, 2, 1, 3, 2])
-        # print(json.dumps(network_data))
-
     def test_minimal_case(self):
         ''' Test the minimal case with two nodes '''
 
-        self.first_join()
-        self.second_join()
-
-    def first_join(self):
-        ''' Add the first node with the capacity of 1 '''
+        # Add the first node with the capacity of 1
 
         self.network.join(1)
 
@@ -86,10 +73,7 @@ class TestP2PNetwork(unittest.TestCase):
         assert node.capacity == 1
         assert node.remaining == 1
 
-        self.network.info()
-
-    def second_join(self):
-        ''' Add the second node with the capacity of 0 '''
+        # Add the second node with the capacity of 0
 
         self.network.join(0)
 
