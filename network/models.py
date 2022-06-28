@@ -24,6 +24,7 @@ class Node:
     capacity: int
     parent_id: int
     child_ids: List[int]
+    depth: int
     tree_id: int
     remaining: int
 

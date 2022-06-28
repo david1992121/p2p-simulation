@@ -94,12 +94,12 @@ class TestP2PNetwork(unittest.TestCase):
         assert second_node.remaining == 0
 
     def test_add_node(self):
-        new_node = Node(1, 0, 0, [], 1, 0)
+        new_node = Node(1, 0, 0, [], 0, 1, 0)
         self.network.add_node(new_node)
         assert len(self.network.nodes) == 1
 
     def test_add_tree(self):
-        new_node = Node(1, 0, 0, [], 1, 0)
+        new_node = Node(1, 0, 0, [], 0, 1, 0)
         self.network.add_node(new_node)
         new_tree = Tree(1, [1], 1)
         self.network.add_tree(new_tree)
