@@ -219,14 +219,15 @@ class P2PNetwork():
                 all_descendants.append(sub_node.id)
 
         if not is_root:
-            remainings = [x for x in nodes if not x.id in all_descendants]
+            remainings = [x for x in nodes if x.id not in all_descendants]
             if len(remainings) > 0:
                 tree_set.insert(0, remainings)
 
         return tree_set
 
     def combine_trees(self, cur_tree: Tree, sub_trees: List[List[Node]]):
-        ''' Combine the subtrees 
+        '''
+        Combine the subtrees
         The number of subtrees could be either of 2, 3, and 4.
         But for now, just consider the case that there are two subtrees.
         '''
